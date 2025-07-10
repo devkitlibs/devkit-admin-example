@@ -1,0 +1,33 @@
+import { createApp } from "vue";
+import "@/pkg/style/style.css";
+import App from "./App.vue";
+import { createPinia } from "pinia";
+import "primeicons/primeicons.css";
+import router from "@/pkg/router";
+import DevkitAdminPlugin from "@devkitvue/admin";
+import PrimeVue from "primevue/config";
+import { ToastService, DialogService } from "primevue";
+import { plugin as FormkitPlugin } from "@formkit/vue";
+import { i18n } from "@/pkg/plugins/i18n.config";
+import { VueQueryPlugin } from "@tanstack/vue-query";
+import { devkitAdminConfig } from "./pkg/plugins/devkitadmin.config";
+import { tanstackOptions } from "./pkg/plugins/tanstack.config";
+import { formkitConfig } from "./pkg/plugins/formkit.config";
+import { AppBtn, AppIcon, AppImage } from "@devkitvue/base-components";
+
+const app = createApp(App);
+
+app.use(router);
+const pinia = createPinia();
+app.use(pinia);
+app.use(FormkitPlugin, formkitConfig);
+app.use(PrimeVue, { theme: "none" });
+app.use(i18n);
+app.use(ToastService);
+app.use(DialogService);
+app.use(VueQueryPlugin, tanstackOptions);
+app.use(DevkitAdminPlugin, devkitAdminConfig);
+app.component("AppBtn", AppBtn);
+app.component("AppIcon", AppIcon);
+app.component("AppImage", AppImage);
+app.mount("#app");
